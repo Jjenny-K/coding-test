@@ -1,12 +1,14 @@
 from rest_framework import viewsets, mixins, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
 
 from accounts.models import User
 from accounts.serializers import UserSignupSerializer, \
                               UserLoginSerializer, \
                               UserLogoutSerializer, \
                               UserSerializer
+from accounts.permissions import IsOwnerOrReadOnly
 
 
 class UserViewset(viewsets.GenericViewSet,
@@ -26,6 +28,14 @@ class UserViewset(viewsets.GenericViewSet,
             return UserLogoutSerializer
         else:
             return UserSerializer
+
+    def get_permissions(self):
+        if self.action in ('signup', 'login'):
+            permission_class = (AllowAny,)
+        else:
+            permission_class = (IsOwnerOrReadOnly,)
+
+        return [permission() for permission in permission_class]
 
     @action(methods=['post'], detail=False)
     def signup(self, request):
