@@ -8,7 +8,7 @@ from accounts.serializers import UserSignupSerializer, \
                               UserLoginSerializer, \
                               UserLogoutSerializer, \
                               UserSerializer
-from accounts.permissions import IsOwnerOrReadOnly
+from accounts.permissions import IsOwner
 
 
 class UserViewset(viewsets.GenericViewSet,
@@ -33,7 +33,7 @@ class UserViewset(viewsets.GenericViewSet,
         if self.action in ('signup', 'login'):
             permission_class = (AllowAny,)
         else:
-            permission_class = (IsOwnerOrReadOnly,)
+            permission_class = (IsOwner,)
 
         return [permission() for permission in permission_class]
 
