@@ -9,6 +9,7 @@ from problems.serializers import QuestionCreateSerializer, \
                                  AnswerCreateSerializer, \
                                  AnswerListSerializer, \
                                  AnswerDetailSerializer
+from problems.permissions import QuestionIsOwnerOrReadOnly, AnswerIsOwner
 
 
 class QuestionViewSet(viewsets.ModelViewSet):
@@ -21,6 +22,8 @@ class QuestionViewSet(viewsets.ModelViewSet):
             return QuestionCreateSerializer
         else:
             return QuestionDetailSerializer
+
+    permission_classes = (QuestionIsOwnerOrReadOnly,)
 
     filter_backends = (filters.OrderingFilter, filters.SearchFilter,)
     search_fields = ('title', 'category', 'difficulty',)
@@ -58,6 +61,8 @@ class AnswerViewSet(viewsets.ModelViewSet):
             return AnswerCreateSerializer
         else:
             return AnswerDetailSerializer
+
+    permission_classes = (AnswerIsOwner,)
 
     filter_backends = (filters.OrderingFilter, filters.SearchFilter,)
     search_fields = ('question__title', 'question__category', 'question__difficulty',)
