@@ -34,7 +34,7 @@ class QuestionDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
         fields = (
-            'username',
+            'user_name',
             'title',
             'description',
             'constraint',
@@ -77,7 +77,7 @@ class AnswerDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Answer
         fields = (
-            'username',
+            'user_name',
             'question_title',
             'question_description',
             'answer',
