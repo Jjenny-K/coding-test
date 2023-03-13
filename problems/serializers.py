@@ -51,6 +51,7 @@ class AnswerCreateSerializer(serializers.ModelSerializer):
             'question',
             'answer',
             'description',
+            'testcase',
         )
 
 
@@ -82,4 +83,5 @@ class AnswerDetailSerializer(serializers.ModelSerializer):
             'question_description',
             'answer',
             'description',
+            'testcase',
         )

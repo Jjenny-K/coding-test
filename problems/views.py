@@ -81,6 +81,7 @@ class AnswerViewSet(viewsets.ModelViewSet):
                 question=request.data['question'],
                 answer=request.data['answer'],
                 description=request.data['description'],
+                testcase=request.data['testcase'],
             )
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
