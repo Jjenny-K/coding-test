@@ -29,6 +29,7 @@ class Answer(TimestampZone):
     question = models.ForeignKey('problems.Question', verbose_name='문제', on_delete=models.CASCADE)
     answer = models.CharField(verbose_name='답안', max_length=255)
     description = models.TextField(verbose_name='해설')
+    testcase = models.JSONField(verbose_name='테스트케이스', default=dict)
 
     class Meta:
         db_table = 'answer'
